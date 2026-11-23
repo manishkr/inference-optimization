@@ -1,0 +1,35 @@
+[project]
+name = "nested-kv"
+version = "0.1.0"
+description = "Multiscale (global, block, local) KV-cache key scoring on CUDA"
+requires-python = ">=3.11"
+dependencies = [
+    "torch==2.9.1",
+    "nvidia-cuda-nvcc==13.2.*",
+    "nvidia-cuda-cccl==13.2.*",
+    "numpy",
+    "ninja",
+    "setuptools",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv]
+package = false
+override-dependencies = [
+    "nvidia-cuda-runtime==13.2.*",
+    "nvidia-cuda-crt==13.2.*",
+    "nvidia-nvvm==13.2.*",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
